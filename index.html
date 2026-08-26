@@ -48,7 +48,7 @@
   /* ---------- Top bar ---------- */
   .topbar{
     background:#0C421B;
-    color:#0C421B;
+    color:#f4efe4;
     padding:16px 22px;
     display:flex;
     align-items:center;
@@ -65,7 +65,7 @@
     width:38px;height:38px;border-radius:8px;
     background:#0C421B;
     display:flex;align-items:center;justify-content:center;
-    font-family:Georgia,serif;font-weight:700;color:#FFFFFF;
+    font-family:Georgia,serif;font-weight:700;color:var(--white);
     font-size:18px;
     box-shadow:inset 0 0 0 2px rgba(255,255,255,.25);
     flex-shrink:0;
@@ -91,44 +91,6 @@
   .status-dot.err{background:#a5372b;box-shadow:0 0 0 3px rgba(165,55,43,.25);}
 
   .topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-
-  /* ---------- Auth gate ---------- */
-  #authGate{
-    position:fixed;inset:0;background:#0C421B;
-    z-index:500;display:flex;align-items:center;justify-content:center;padding:24px;
-  }
-  #authGate.hidden{display:none;}
-  .auth-card{
-    background:var(--card);border-radius:14px;max-width:420px;width:100%;
-    box-shadow:0 24px 70px rgba(0,0,0,.35);overflow:hidden;
-  }
-  .auth-head{padding:26px 28px 18px;text-align:center;}
-  .auth-head .brand-mark{margin:0 auto 12px;}
-  .auth-head h2{margin:0 0 4px;font-size:19px;}
-  .auth-head p{margin:0;font-size:12.5px;color:var(--ink-soft);}
-  .auth-tabs{display:flex;border-bottom:1px solid var(--line);}
-  .auth-tabs button{
-    flex:1;padding:11px;border:none;background:none;cursor:pointer;font-size:13px;font-weight:600;
-    color:var(--ink-soft);border-bottom:2px solid transparent;
-  }
-  .auth-tabs button.active{color:var(--navy);border-bottom-color:var(--brass);}
-  .auth-body{padding:22px 28px 26px;}
-  .auth-form{display:none;flex-direction:column;gap:12px;}
-  .auth-form.active{display:flex;}
-  .auth-form .btn-primary{justify-content:center;margin-top:4px;}
-  .auth-error{font-size:12px;color:var(--red);background:var(--red-tint);border-radius:7px;padding:8px 10px;display:none;}
-  .auth-error.show{display:block;}
-  .auth-note{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:14px;line-height:1.5;}
-  .user-pill{
-    display:flex;align-items:center;gap:8px;
-    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
-    padding:5px 6px 5px 12px;border-radius:100px;font-size:12.5px;color:#f4efe4;
-  }
-  .user-pill .avatar{width:22px;height:22px;font-size:10px;background:var(--brass);color:var(--navy);}
-  .user-pill button{
-    background:rgba(255,255,255,.14);border:none;color:#f4efe4;border-radius:100px;
-    width:22px;height:22px;cursor:pointer;font-size:12px;line-height:1;
-  }
   .icon-btn{
     background:rgba(255,255,255,.08);
     border:1px solid rgba(255,255,255,.16);
@@ -201,7 +163,7 @@
     outline-offset:1px;
   }
   .btn-primary{
-    background:#114022;
+    background:var(--navy);
     color:#f6f1e6;
     border-color:var(--navy);
     font-weight:600;
@@ -418,69 +380,6 @@
 </head>
 <body>
 
-<div id="authGate">
-  <div class="auth-card">
-    <div class="auth-head">
-      <div class="brand-mark">B</div>
-      <h2>Badsbrotel Suites</h2>
-      <p>Sign in with your department account</p>
-    </div>
-    <div class="auth-tabs">
-      <button id="tabLoginBtn" class="active">Log In</button>
-      <button id="tabRegisterBtn">Create Account</button>
-    </div>
-    <div class="auth-body">
-      <div class="auth-error" id="authError"></div>
-
-      <form class="auth-form active" id="loginForm">
-        <div class="form-field">
-          <label for="li_username">Username</label>
-          <input type="text" id="li_username" autocomplete="username">
-        </div>
-        <div class="form-field">
-          <label for="li_password">Password</label>
-          <input type="password" id="li_password" autocomplete="current-password">
-        </div>
-        <button type="submit" class="btn btn-primary">Log In</button>
-      </form>
-
-      <form class="auth-form" id="registerForm">
-        <div class="form-field">
-          <label for="rg_name">Your name</label>
-          <input type="text" id="rg_name" placeholder="e.g. Mia Santos">
-        </div>
-        <div class="form-field">
-          <label for="rg_department">Department</label>
-          <select id="rg_department">
-        <option>Housekeeping</option>
-        <option>Maintenance</option>
-        <option>Front Desk</option>
-        <option>IT / Tech</option>
-        <option>Sales</option>
-        <option>Human Resource</option>
-	    <option>Finance</option>
-        <option>Food &amp; Beverage</option>
-        <option>Security</option>
-        <option>Culinary</option>
-        <option>Other</option>
-          </select>
-        </div>
-        <div class="form-field">
-          <label for="rg_username">Choose a username</label>
-          <input type="text" id="rg_username" autocomplete="username">
-        </div>
-        <div class="form-field">
-          <label for="rg_password">Choose a password</label>
-          <input type="password" id="rg_password" autocomplete="new-password">
-        </div>
-        <button type="submit" class="btn btn-primary">Create Account</button>
-      </form>
-
-      <p class="auth-note">Accounts are stored on this device (and synced to other devices only where live sync is active) for staff identification — this is not a secure login system for sensitive data.</p>
-    </div>
-  </div>
-</div>
-
 <div class="topbar">
   <div class="brand">
     <div class="brand-mark">B</div>
@@ -490,11 +389,6 @@
     </div>
   </div>
   <div class="topbar-right">
-    <div class="user-pill" id="userPill" style="display:none;">
-      <span class="avatar" id="userAvatar"></span>
-      <span id="userLabel"></span>
-      <button id="logoutBtn" title="Log out">⏻</button>
-    </div>
     <div class="pill-row">
       <div class="status-pill" id="netPill" title="Whether this device currently has internet access">
         <span class="status-dot" id="netDot"></span>
@@ -502,14 +396,10 @@
       </div>
       <div class="status-pill" id="syncPill" title="Whether tickets are syncing with other devices">
         <span class="status-dot gray" id="syncDot"></span>
-	<!---	
         <span id="syncLabel">Local device only</span>
-	--->	
       </div>
     </div>
-		<!---
     <button class="icon-btn" id="syncNowBtn" title="Sync now">⟳ Sync</button>
-	--->	
     <button class="icon-btn" id="handoverBtn" title="Shift handover report">☰ Handover</button>
     <button class="icon-btn" id="exportBtn" title="Save a backup file of all tickets">⭳ Export</button>
     <button class="icon-btn" id="importBtn" title="Load tickets from a backup file">⭱ Import</button>
@@ -575,7 +465,7 @@
 
 </div>
 
-<footer id="footerNote">Badsbrotel Suites stores all data on this device. Nothing leaves this browser unless you export it. Works with or without an internet connection.</footer>
+<footer id="footerNote">Badsbrotel Suites all data on this device. Nothing leaves this browser unless you export it. Works with or without an internet connection.</footer>
 
 <!-- New / Edit Ticket Modal -->
 <div class="overlay" id="ticketModalOverlay">
@@ -601,17 +491,13 @@
         <div class="form-field">
           <label for="f_category">Department</label>
           <select id="f_category">
-        <option>Housekeeping</option>
-        <option>Maintenance</option>
-        <option>Front Desk</option>
-        <option>IT / Tech</option>
-        <option>Sales</option>
-        <option>Human Resource</option>
-	    <option>Finance</option>
-        <option>Food &amp; Beverage</option>
-        <option>Security</option>
-        <option>Culinary</option>
-        <option>Other</option>
+            <option>Housekeeping</option>
+            <option>Maintenance</option>
+            <option>Front Desk</option>
+            <option>IT / Tech</option>
+            <option>Food &amp; Beverage</option>
+            <option>Security</option>
+            <option>Other</option>
           </select>
         </div>
         <div class="form-field">
@@ -717,9 +603,6 @@
   var COUNTER_KEY = "keyline_hotel_counter_v1";
   var NOTES_KEY = "keyline_handover_notes_v1";
   var SHARED_KEY = "tickets_shared_v1";
-  var USERS_KEY = "keyline_hotel_users_v1";
-  var USERS_SHARED_KEY = "users_shared_v1";
-  var SESSION_KEY = "keyline_hotel_session_v1";
 
   var state = {
     tickets: [],
@@ -728,9 +611,7 @@
     activeTicketId: null,
     editingId: null,
     lastSync: null,
-    handoverSelected: new Set(),
-    users: [],
-    currentUser: null
+    handoverSelected: new Set()
   };
 
   var STATUS_ORDER = ["Open","In Progress","On Hold","Resolved","Closed"];
@@ -767,136 +648,6 @@
     var n = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10) + 1;
     localStorage.setItem(COUNTER_KEY, String(n));
     return "HTL-" + String(n).padStart(4,"0");
-  }
-
-  /* ---------------- accounts (lightweight, device-local) ---------------- */
-  // NOTE: this hash is for avoiding plain-text storage convenience only —
-  // it is not cryptographically secure. Do not use this system to protect
-  // sensitive data; it exists purely to attribute tickets to staff/department.
-  function simpleHash(str){
-    var h1 = 0xdeadbeef, h2 = 0x41c6ce57;
-    for(var i=0;i<str.length;i++){
-      var ch = str.charCodeAt(i);
-      h1 = Math.imul(h1 ^ ch, 2654435761);
-      h2 = Math.imul(h2 ^ ch, 1597334677);
-    }
-    h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
-    h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
-    return (h1>>>0).toString(16) + (h2>>>0).toString(16);
-  }
-  function loadUsers(){
-    try{
-      var raw = localStorage.getItem(USERS_KEY);
-      state.users = raw ? JSON.parse(raw) : [];
-    }catch(e){ state.users = []; }
-  }
-  function saveUsersLocal(){
-    try{ localStorage.setItem(USERS_KEY, JSON.stringify(state.users)); }catch(e){}
-  }
-  function saveUsers(){
-    saveUsersLocal();
-    pushSharedUsers();
-  }
-  function findUser(username){
-    var u = username.trim().toLowerCase();
-    return state.users.find(function(x){ return x.username.toLowerCase()===u; });
-  }
-  function registerUser(name, department, username, password){
-    if(findUser(username)) return {error:"That username is already taken."};
-    var user = {
-      id: "u_"+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
-      name: name, department: department, username: username.trim(),
-      passHash: simpleHash(password),
-      createdAt: Date.now(), updatedAt: Date.now()
-    };
-    state.users.push(user);
-    saveUsers();
-    return {user: user};
-  }
-  function verifyLogin(username, password){
-    var u = findUser(username);
-    if(!u) return {error:"No account with that username."};
-    if(u.passHash !== simpleHash(password)) return {error:"Incorrect password."};
-    return {user: u};
-  }
-  function setSession(userId){
-    state.currentUser = state.users.find(function(u){ return u.id===userId; }) || null;
-    try{ localStorage.setItem(SESSION_KEY, userId || ""); }catch(e){}
-    renderUserPill();
-  }
-  function restoreSession(){
-    var id;
-    try{ id = localStorage.getItem(SESSION_KEY); }catch(e){ id = null; }
-    if(id){
-      var u = state.users.find(function(x){ return x.id===id; });
-      if(u){ state.currentUser = u; return true; }
-    }
-    return false;
-  }
-  function renderUserPill(){
-    var pill = $("userPill");
-    if(!state.currentUser){ pill.style.display="none"; return; }
-    pill.style.display = "flex";
-    $("userAvatar").textContent = initials(state.currentUser.name);
-    $("userLabel").textContent = state.currentUser.name + " · " + state.currentUser.department;
-  }
-  function mergeUsers(localList, remoteList){
-    var map = {};
-    localList.forEach(function(u){ map[u.username.toLowerCase()]=u; });
-    remoteList.forEach(function(r){
-      var key = r.username.toLowerCase();
-      var l = map[key];
-      if(!l || (r.updatedAt||0) > (l.updatedAt||0)){ map[key]=r; }
-    });
-    return Object.keys(map).map(function(k){ return map[k]; });
-  }
-  function pushSharedUsers(){
-    if(!hasSync || !navigator.onLine) return;
-    try{
-      window.storage.set(USERS_SHARED_KEY, JSON.stringify(state.users), true).catch(function(){});
-    }catch(e){}
-  }
-  function pullSharedUsers(){
-    if(!hasSync || !navigator.onLine) return;
-    try{
-      window.storage.get(USERS_SHARED_KEY, true).then(function(res){
-        if(res && res.value){
-          try{
-            var remote = JSON.parse(res.value);
-            if(Array.isArray(remote)){
-              state.users = mergeUsers(state.users, remote);
-              saveUsersLocal();
-              if(state.currentUser){
-                var refreshed = state.users.find(function(u){ return u.id===state.currentUser.id; });
-                if(refreshed){ state.currentUser = refreshed; renderUserPill(); }
-              }
-            }
-          }catch(e){}
-        }
-        pushSharedUsers();
-      }).catch(function(){});
-    }catch(e){}
-  }
-
-  function showAuthGate(){ $("authGate").classList.remove("hidden"); }
-  function hideAuthGate(){ $("authGate").classList.add("hidden"); }
-  function setAuthTab(tab){
-    var isLogin = tab==="login";
-    $("tabLoginBtn").classList.toggle("active", isLogin);
-    $("tabRegisterBtn").classList.toggle("active", !isLogin);
-    $("loginForm").classList.toggle("active", isLogin);
-    $("registerForm").classList.toggle("active", !isLogin);
-    $("authError").classList.remove("show");
-  }
-  function showAuthError(msg){
-    var el = $("authError");
-    el.textContent = msg;
-    el.classList.add("show");
-  }
-  function applyPostLoginDefaults(){
-    if(!state.currentUser) return;
-    state.filters.category = state.currentUser.department;
-    $("filterCategory").value = state.currentUser.department;
   }
 
   function seedData(){
@@ -1091,10 +842,10 @@
     $("f_title").value = t ? t.title : "";
     $("f_desc").value = t ? t.description : "";
     $("f_room").value = t ? t.room : "";
-    $("f_category").value = t ? t.category : (state.currentUser ? state.currentUser.department : "Housekeeping");
+    $("f_category").value = t ? t.category : "Housekeeping";
     $("f_priority").value = t ? t.priority : "Medium";
     $("f_status").value = t ? t.status : "Open";
-    $("f_reporter").value = t ? t.reporter : (state.currentUser ? state.currentUser.name : "");
+    $("f_reporter").value = t ? t.reporter : "";
     $("f_assignee").value = t ? t.assignee : "";
     $("f_guest").value = t ? t.guest : "";
     var dueTs = t ? t.dueAt : (Date.now() + SLA_HOURS[$("f_priority").value]*3600000);
@@ -1317,7 +1068,7 @@
         }).join("");
     $("printArea").innerHTML =
       '<div style="max-width:760px;margin:0 auto;padding:30px;font-family:-apple-system,Segoe UI,sans-serif;color:#26241f;">'+
-      '<h1 style="font-family:Georgia,serif;margin:0 0 2px;">Badsbrotel Suites — Shift Handover Report</h1>'+
+      '<h1 style="font-family:Georgia,serif;margin:0 0 2px;">Badsbrotel Suites — Hotel Ticket Desk — Shift Handover Report</h1>'+
       '<p style="color:#6b6558;font-size:12.5px;margin:0 0 20px;">Generated '+stamp+'</p>'+
       (notes ? '<div style="background:#f7f4ec;border-radius:8px;padding:12px 14px;margin-bottom:20px;font-size:13px;"><strong>Notes for next shift:</strong><br>'+notes+'</div>' : '')+
       body+
@@ -1351,7 +1102,7 @@
         renderAll();
         showToast("Imported "+data.length+" tickets.");
       }catch(e){
-        showToast("That file doesn't look like a Badsbrotel Suites backup.");
+        showToast("That file doesn't look like a Keyline backup.");
       }
     };
     reader.readAsText(file);
@@ -1428,40 +1179,6 @@
 
   /* ---------------- event wiring ---------------- */
   function wire(){
-    $("tabLoginBtn").addEventListener("click", function(){ setAuthTab("login"); });
-    $("tabRegisterBtn").addEventListener("click", function(){ setAuthTab("register"); });
-    $("loginForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      var res = verifyLogin($("li_username").value, $("li_password").value);
-      if(res.error){ showAuthError(res.error); return; }
-      setSession(res.user.id);
-      hideAuthGate();
-      applyPostLoginDefaults();
-      renderAll();
-    });
-    $("registerForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      var name = $("rg_name").value.trim();
-      var username = $("rg_username").value.trim();
-      var password = $("rg_password").value;
-      var department = $("rg_department").value;
-      if(!name || !username || !password){ showAuthError("Please fill in every field."); return; }
-      if(password.length<4){ showAuthError("Password should be at least 4 characters."); return; }
-      var res = registerUser(name, department, username, password);
-      if(res.error){ showAuthError(res.error); return; }
-      setSession(res.user.id);
-      hideAuthGate();
-      applyPostLoginDefaults();
-      renderAll();
-      showToast("Welcome, "+res.user.name+".");
-    });
-    $("logoutBtn").addEventListener("click", function(){
-      setSession(null);
-      $("li_username").value = ""; $("li_password").value = "";
-      setAuthTab("login");
-      showAuthGate();
-    });
-
     $("newTicketBtn").addEventListener("click", function(){ openTicketModal(null); });
     $("closeTicketModal").addEventListener("click", closeTicketModal);
     $("cancelTicketBtn").addEventListener("click", closeTicketModal);
@@ -1558,33 +1275,21 @@
     });
 
     if(hasSync){
-      setInterval(function(){ if(navigator.onLine){ pullShared(false); pullSharedUsers(); } }, 20000);
+      setInterval(function(){ if(navigator.onLine) pullShared(false); }, 20000);
     }
   }
 
   /* ---------------- init ---------------- */
   load();
-  loadUsers();
   wire();
   updateNetStatus();
   setSyncStatus(hasSync ? "offline" : "local");
   renderAll();
   if(!hasSync){
-    $("footerNote").textContent = "Badsbrotel Suites stores all data on this device's browser. Nothing leaves this browser unless you export it. Works with or without an internet connection. Multi-device sync isn't active in this context — use Export/Import to move data between devices.";
+    $("footerNote").textContent = "Badsbrotel Suites all data on this device's browser. Nothing leaves this browser unless you export it. Works with or without an internet connection. Multi-device sync isn't active in this context — use Export/Import to move data between devices.";
   } else {
     $("footerNote").textContent = "Badsbrotel Suites saves locally first, so it keeps working offline, and syncs with other devices on this same board when you're back online.";
     pullShared(false);
-    pullSharedUsers();
-  }
-
-  if(restoreSession()){
-    hideAuthGate();
-    renderUserPill();
-    applyPostLoginDefaults();
-    renderAll();
-  } else {
-    setAuthTab(state.users.length ? "login" : "register");
-    showAuthGate();
   }
 
 })();
