@@ -1,6 +1,6 @@
-# Keyline — Hotel Ticket Desk (Vercel + Postgres edition)
+# Badsbrotel Suites Ticket Desk (Vercel + Postgres edition)
 
-A real shared backend for the Keyline ticket board: one login system, one
+A real shared backend for the Badsbrotel Suites ticket board: one login system, one
 shared ticket list, backed by a Postgres database, deployed as Vercel
 serverless functions. The frontend still works offline — it caches the last
 synced data locally and queues any changes made while disconnected, syncing
@@ -21,7 +21,7 @@ schema.sql              run this once against your database
 .env.example            copy to .env.local for local dev
 ```
 
-## 1. Create a Vercel Postgres database
+## 1. Create a Badsbrotel Suites Postgres database
 
 1. Go to your project on vercel.com → **Storage** tab → **Create Database** → choose **Postgres**.
 2. Once created, click **Connect Project** to link it to this project. Vercel
