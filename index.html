@@ -213,83 +213,169 @@
   .ticket-id{font-size:10.5px;color:var(--ink-soft);letter-spacing:.5px;font-variant-numeric:tabular-nums;}
   .prio-tag{
     font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;
-    padding:2px 6px;border-radius:4px;background:var(--accent-tint,var(--brass-tint));color:var(--accent,var(--brass));
+    padding:2px 7px;border-radius:100px;white-space:nowrap;
   }
-  .prio-tag.high{background:var(--red-tint);color:var(--red);}
-  .prio-tag.normal{background:var(--brass-tint);color:var(--brass);}
-  .prio-tag.low{background:var(--green-tint);color:var(--green);}
-  .prio-tag.resolved{background:var(--gray-tint);color:var(--gray);}
-  .ticket-title{font-size:13px;margin:0;line-height:1.3;font-weight:500;}
-  .ticket-text{font-size:12px;color:var(--ink-soft);margin-top:5px;line-height:1.35;}
-  .ticket-meta{display:flex;justify-content:space-between;align-items:flex-end;gap:6px;margin-top:8px;font-size:11px;}
-  .ticket-dept{
-    font-size:9.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-soft);background:var(--gray-tint);
-    padding:2px 5px;border-radius:3px;
+  .ticket-title{font-size:14px;font-weight:600;color:var(--ink);margin:2px 0 6px;line-height:1.3;}
+  .ticket-meta{display:flex;flex-wrap:wrap;gap:6px;font-size:11px;color:var(--ink-soft);margin-bottom:6px;}
+  .ticket-meta span{background:var(--gray-tint);padding:2px 7px;border-radius:100px;}
+  .ticket-meta span.due-overdue{background:var(--red-tint);color:var(--red);font-weight:700;}
+  .ticket-meta span.due-soon{background:var(--amber-tint);color:var(--brass-dark);font-weight:700;}
+  .ticket-foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-soft);margin-top:8px;}
+  .avatar{
+    width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;
+    font-size:9.5px;display:flex;align-items:center;justify-content:center;font-weight:700;
   }
-  .ticket-due{color:var(--ink-soft);}
-  .ticket-due.imminent{color:var(--red);font-weight:600;}
 
   /* ---------- Table view ---------- */
-  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-  th{
-    background:var(--navy);color:#f6f1e6;padding:11px 13px;text-align:left;font-size:12px;font-weight:600;
-    text-transform:uppercase;letter-spacing:.6px;
+  .table-wrap{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);overflow-x:auto;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  thead th{
+    text-align:left;background:#f2ede2;color:var(--ink-soft);
+    text-transform:uppercase;font-size:10.5px;letter-spacing:.6px;
+    padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;
   }
-  td{padding:11px 13px;border-top:1px solid var(--line);font-size:13px;}
-  tr:hover{background:var(--gray-tint);}
+  tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:middle;white-space:nowrap;}
+  tbody tr{cursor:pointer;}
+  tbody tr:hover{background:#faf6ec;}
   tbody tr:last-child td{border-bottom:none;}
+  .badge{
+    font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:.4px;
+    display:inline-block;
+  }
+
+  /* status/priority color helpers */
+  .b-open{background:var(--blue-tint);color:var(--blue);}
+  .b-progress{background:var(--amber-tint);color:var(--brass-dark);}
+  .b-hold{background:var(--gray-tint);color:var(--gray);}
+  .b-resolved{background:var(--green-tint);color:var(--green);}
+  .b-closed{background:#eee;color:#888;}
+  .b-overdue{background:var(--red-tint);color:var(--red);}
+  .p-low{background:var(--gray-tint);color:var(--gray);}
+  .p-medium{background:var(--blue-tint);color:var(--blue);}
+  .p-high{background:var(--amber-tint);color:var(--brass-dark);}
+  .p-urgent{background:var(--red-tint);color:var(--red);}
+
+  .empty-state{
+    text-align:center;padding:60px 20px;color:var(--ink-soft);
+  }
+  .empty-state .glyph{font-size:34px;margin-bottom:10px;}
+  .empty-state h3{margin:0 0 6px;color:var(--ink);font-size:16px;}
 
   /* ---------- Modal ---------- */
-  .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(21,34,56,.5);display:flex;align-items:center;justify-content:center;z-index:50;opacity:0;pointer-events:none;transition:opacity .2s ease;}
-  .modal-overlay.open{opacity:1;pointer-events:auto;}
-  .modal-content{
-    background:var(--card);border-radius:12px;box-shadow:0 20px 60px rgba(21,34,56,.3);
-    max-width:420px;width:90%;max-height:85vh;overflow-y:auto;position:relative;transform:scale(.95);transition:transform .2s ease;
+  .overlay{
+    position:fixed;inset:0;background:rgba(21,20,15,.45);
+    display:none;align-items:flex-start;justify-content:center;
+    padding:32px 16px;overflow-y:auto;z-index:100;
   }
-  .modal-overlay.open .modal-content{transform:scale(1);}
+  .overlay.show{display:flex;}
+  .modal{
+    background:var(--card);border-radius:14px;max-width:640px;width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    animation:pop .15s ease;
+  }
+  @keyframes pop{from{transform:translateY(8px);opacity:0;}to{transform:translateY(0);opacity:1;}}
   .modal-head{
-    display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 22px;border-bottom:1px solid var(--line);
   }
-  .modal-head h2{margin:0;font-size:17px;}
-  .close-btn{
-    background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--ink-soft);padding:0;width:28px;height:28px;display:flex;align-items:center;justify-content:center;
-  }
-  .close-btn:hover{color:var(--ink);}
-  .modal-body{padding:18px;}
-  .form-group{margin-bottom:14px;}
-  .form-group label{display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--ink-soft);margin-bottom:5px;}
-  .form-group input, .form-group select, .form-group textarea{
-    width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:6px;font-size:13px;
-    font-family:inherit;color:var(--ink);
-  }
-  .form-group textarea{resize:vertical;min-height:60px;}
-  .modal-foot{display:flex;gap:8px;padding:14px 18px;border-top:1px solid var(--line);justify-content:flex-end;}
-  .modal-foot .btn{margin:0;}
+  .modal-head h2{font-size:18px;margin:0;}
+  .modal-close{background:none;border:none;font-size:20px;cursor:pointer;color:var(--ink-soft);line-height:1;padding:4px;}
+  .modal-body{padding:20px 22px;}
+  .modal-foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:10px;}
 
-  /* ---------- Toast ---------- */
-  .toast{
-    position:fixed;bottom:20px;right:20px;background:var(--navy);color:#f6f1e6;padding:12px 16px;border-radius:6px;
-    font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,.2);z-index:60;animation:slideIn .3s ease;
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .form-field{display:flex;flex-direction:column;gap:5px;}
+  .form-field.full{grid-column:1/-1;}
+  label{font-size:12px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;}
+  input[type=text], input[type=datetime-local], textarea, .form-field select{
+    padding:9px 11px;border:1px solid var(--line);border-radius:7px;font-size:13.5px;color:var(--ink);background:#fdfcfa;
+    font-family:inherit;
   }
-  @keyframes slideIn{from{transform:translateX(400px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+  textarea{resize:vertical;min-height:70px;}
+  .hint{font-size:11px;color:var(--ink-soft);margin-top:2px;}
 
-  /* ---------- Responsive ---------- */
-  @media(max-width:1200px){.board{grid-template-columns:repeat(2,1fr);}.stats{grid-template-columns:repeat(3,1fr);}}
-  @media(max-width:768px){
-    .topbar{padding:12px 16px;}.wrap{padding:16px 16px 40px;}
-    .board{grid-template-columns:1fr;}.toolbar{flex-direction:column;align-items:stretch;}
-    .filters{flex-direction:column;}.search-box{min-width:auto;}
-    .search-box input{font-size:16px;}
+  /* ---------- Ticket detail ---------- */
+  .detail-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;}
+  .detail-badges{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;font-size:13px;margin-bottom:16px;}
+  .detail-grid div span{display:block;color:var(--ink-soft);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px;}
+  .divider{height:1px;background:var(--line);margin:16px 0;}
+  .log{display:flex;flex-direction:column;gap:10px;max-height:200px;overflow-y:auto;padding-right:4px;}
+  .log-item{font-size:12.5px;padding:8px 10px;background:#f7f4ec;border-radius:8px;}
+  .log-item time{display:block;color:var(--ink-soft);font-size:10.5px;margin-top:3px;}
+  .add-note{display:flex;gap:8px;margin-top:10px;}
+  .add-note input{flex:1;}
+
+  .quick-status{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+  .quick-status button{
+    font-size:11.5px;padding:5px 10px;border-radius:100px;border:1px solid var(--line);background:#fff;cursor:pointer;
+  }
+  .quick-status button.active{background:var(--navy);color:#fff;border-color:var(--navy);}
+
+  .danger-link{color:var(--red);background:none;border:none;font-size:12.5px;cursor:pointer;text-decoration:underline;padding:0;}
+
+  footer{
+    text-align:center;color:var(--ink-soft);font-size:11.5px;padding:20px;
+  }
+
+  /* ---------- Handover report ---------- */
+  .handover-modal{max-width:760px;}
+  .handover-notes textarea{min-height:80px;width:100%;}
+  .ho-section{margin-bottom:18px;}
+  .ho-section h4{
+    font-family:Georgia,serif;font-size:14.5px;margin:0 0 8px;padding-bottom:6px;border-bottom:2px solid var(--brass);
+    color:var(--navy);
+  }
+  .ho-row{
+    display:flex;align-items:flex-start;justify-content:space-between;gap:10px;font-size:12.5px;padding:7px 0;border-bottom:1px solid var(--line);
+  }
+  .ho-row:last-child{border-bottom:none;}
+  .ho-row.excluded{opacity:.4;}
+  .ho-row-main{display:flex;gap:10px;flex:1;min-width:0;}
+  .ho-row-main input[type=checkbox]{margin-top:3px;flex-shrink:0;cursor:pointer;}
+  .ho-left strong{display:block;font-size:13px;}
+  .ho-meta{color:var(--ink-soft);font-size:11px;margin-top:2px;}
+  .ho-right{text-align:right;white-space:nowrap;}
+  .ho-empty{font-size:12px;color:var(--ink-soft);padding:6px 0;}
+  .ho-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;}
+  .ho-section-head{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--brass);margin:0 0 8px;padding-bottom:6px;}
+  .ho-section-head h4{margin:0;border:none;padding:0;}
+  .ho-section-toggle{font-size:10.5px;color:var(--ink-soft);background:none;border:none;cursor:pointer;text-decoration:underline;padding:0;}
+
+  #printArea{display:none;}
+
+  /* toast */
+  #toast{
+    position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--navy);color:#f6f1e6;padding:11px 20px;border-radius:8px;font-size:13px;
+    box-shadow:0 8px 24px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:all .2s ease;z-index:200;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  @media (max-width: 980px){
+    .board{grid-template-columns:1fr 1fr;}
+    .stats{grid-template-columns:repeat(3,1fr);}
+    .form-grid{grid-template-columns:1fr;}
+    .detail-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width: 600px){
+    .board{grid-template-columns:1fr;}
     .stats{grid-template-columns:repeat(2,1fr);}
-    table{font-size:12px;}th,td{padding:8px 10px;}
+    .topbar{padding:12px 14px;}
+    .wrap{padding:14px 14px 40px;}
   }
+
   @media print{
-    body{margin:0;padding:0;}
-    .topbar,.toolbar,.modal-overlay,.toast{display:none !important;}
-    .wrap{padding:0;margin:0;}
-    .board,.table-container{break-inside:avoid;}
+    body.printing-handover > *:not(#printArea){display:none !important;}
+    body.printing-handover #printArea{display:block !important;}
+    body.printing-ticket .topbar,
+    body.printing-ticket .toolbar,
+    body.printing-ticket .stats,
+    body.printing-ticket .board,
+    body.printing-ticket .table-wrap,
+    body.printing-ticket footer,
+    body.printing-ticket #toast{display:none !important;}
   }
-  .table-container{overflow-x:auto;margin-bottom:20px;}
 </style>
 </head>
 <body>
@@ -299,542 +385,707 @@
     <div class="brand-mark">B</div>
     <div class="brand-text">
       <h1>Badsbrotel Suites</h1>
-      <span>Ticket Desk</span>
-    </div>
-  </div>
-  <div class="pill-row">
-    <div class="status-pill">
-      <div id="netDot" class="status-dot"></div>
-      <span id="netLabel">Online</span>
-    </div>
-    <div class="status-pill">
-      <div id="syncDot" class="status-dot"></div>
-      <span id="syncLabel">Syncing…</span>
+      <span>Department Ticket Desk</span>
     </div>
   </div>
   <div class="topbar-right">
+    <div class="pill-row">
+      <div class="status-pill" id="netPill" title="Whether this device currently has internet access">
+        <span class="status-dot" id="netDot"></span>
+        <span id="netLabel">Online</span>
+      </div>
+      <div class="status-pill" id="syncPill" title="Whether tickets are syncing with other devices">
+        <span class="status-dot gray" id="syncDot"></span>
+		
+        <span id="syncLabel">Local device only</span>
+		
+      </div>
+    </div>
     <button class="icon-btn" id="syncNowBtn" title="Sync now">⟳ Sync</button>
+    <button class="icon-btn" id="handoverBtn" title="Shift handover report">☰ Handover</button>
+    <button class="icon-btn" id="exportBtn" title="Save a backup file of all tickets">⭳ Export</button>
+    <button class="icon-btn" id="importBtn" title="Load tickets from a backup file">⭱ Import</button>
+    <input type="file" id="importFile" accept="application/json" style="display:none">
   </div>
 </div>
 
 <div class="wrap">
-  <div class="stats">
-    <div class="stat-card" style="--accent:var(--blue);">
-      <div class="stat-num" id="statOpen">0</div>
-      <div class="stat-label">Open</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--amber);">
-      <div class="stat-num" id="statPending">0</div>
-      <div class="stat-label">Pending</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--red);">
-      <div class="stat-num" id="statOverdue">0</div>
-      <div class="stat-label">Overdue</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--green);">
-      <div class="stat-num" id="statResolved">0</div>
-      <div class="stat-label">Resolved</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--brass);">
-      <div class="stat-num" id="statTotal">0</div>
-      <div class="stat-label">Total</div>
-    </div>
-    <div class="stat-card" style="--accent:var(--gray);">
-      <div class="stat-num" id="statAvgTime">—</div>
-      <div class="stat-label">Avg Time</div>
-    </div>
-  </div>
+
+  <div class="stats" id="statsRow"></div>
 
   <div class="toolbar">
     <div class="filters">
       <div class="search-box">
-        <span>🔍</span>
-        <input id="searchInput" type="text" placeholder="Search tickets…">
+        <span>⌕</span>
+        <input type="text" id="searchInput" placeholder="Search room, title, guest, staff…">
       </div>
       <select id="filterStatus">
-        <option value="">All status</option>
-        <option value="open">Open</option>
-        <option value="pending">Pending</option>
-        <option value="resolved">Resolved</option>
+        <option value="">All statuses</option>
+        <option>Open</option>
+        <option>In Progress</option>
+        <option>On Hold</option>
+        <option>Resolved</option>
+        <option>Closed</option>
       </select>
       <select id="filterCategory">
-        <option value="">All categories</option>
-        <option value="maintenance">Maintenance</option>
-        <option value="billing">Billing</option>
-        <option value="amenities">Amenities</option>
-        <option value="concierge">Concierge</option>
-        <option value="other">Other</option>
+        <option value="">All departments</option>
+        <option>Housekeeping</option>
+        <option>Maintenance</option>
+        <option>Front Desk</option>
+        <option>IT / Tech</option>
+        <option>Sales</option>
+        <option>Human Resource</option>
+	    <option>Finance</option>
+        <option>Food &amp; Beverage</option>
+        <option>Security</option>
+        <option>Culinary</option>
+        <option>Other</option>
       </select>
       <select id="filterPriority">
-        <option value="">All priority</option>
-        <option value="high">High</option>
-        <option value="normal">Normal</option>
-        <option value="low">Low</option>
+        <option value="">All priorities</option>
+        <option>Urgent</option>
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
       </select>
       <select id="filterOverdue">
-        <option value="">All time</option>
+        <option value="">All tickets</option>
         <option value="overdue">Overdue only</option>
-        <option value="today">Due today</option>
       </select>
     </div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <div style="display:flex;gap:8px;align-items:center;">
       <div class="view-toggle">
         <button id="viewBoardBtn" class="active">Board</button>
         <button id="viewTableBtn">Table</button>
       </div>
-      <button id="newTicketBtn" class="btn btn-primary">+ New Ticket</button>
-      <button id="exportBtn" class="btn btn-ghost">⬇ Export</button>
-      <button id="importBtn" class="btn btn-ghost">⬆ Import</button>
-      <input type="file" id="importFile" accept=".json" style="display:none;">
+      <button class="btn btn-primary" id="newTicketBtn">＋ New Ticket</button>
     </div>
   </div>
 
-  <!-- Board view -->
-  <div id="boardView">
-    <div class="board">
-      <div class="col">
-        <div class="col-head">
-          <h3>Open</h3>
-          <div class="col-count" id="colCount-open">0</div>
-        </div>
-        <div class="col-body" id="col-open"></div>
-      </div>
-      <div class="col">
-        <div class="col-head">
-          <h3>Pending</h3>
-          <div class="col-count" id="colCount-pending">0</div>
-        </div>
-        <div class="col-body" id="col-pending"></div>
-      </div>
-      <div class="col">
-        <div class="col-head">
-          <h3>In Progress</h3>
-          <div class="col-count" id="colCount-inprogress">0</div>
-        </div>
-        <div class="col-body" id="col-inprogress"></div>
-      </div>
-      <div class="col">
-        <div class="col-head">
-          <h3>Resolved</h3>
-          <div class="col-count" id="colCount-resolved">0</div>
-        </div>
-        <div class="col-body" id="col-resolved"></div>
-      </div>
-    </div>
-  </div>
+  <div id="boardView"></div>
+  <div id="tableView" style="display:none;"></div>
 
-  <!-- Table view -->
-  <div id="tableView" style="display:none;">
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Room</th>
-            <th>Category</th>
-            <th>Title</th>
-            <th>Status</th>
-            <th>Priority</th>
-            <th>Due</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div id="footerNote" style="font-size:12px;color:var(--ink-soft);margin-top:30px;line-height:1.5;padding:16px 0;border-top:1px solid var(--line);">
-    Multi-device sync enabled. Data syncs automatically across all your devices.
-  </div>
 </div>
 
-<!-- Ticket modal -->
-<div id="ticketModalOverlay" class="modal-overlay">
-  <div class="modal-content">
+<footer id="footerNote">Badsbrotel Suites all data on this device. Nothing leaves this browser unless you export it. Works with or without an internet connection.</footer>
+
+<!-- New / Edit Ticket Modal -->
+<div class="overlay" id="ticketModalOverlay">
+  <div class="modal">
     <div class="modal-head">
       <h2 id="ticketModalTitle">New Ticket</h2>
-      <button id="closeTicketModal" class="close-btn">×</button>
+      <button class="modal-close" id="closeTicketModal">&times;</button>
     </div>
     <div class="modal-body">
-      <div class="form-group">
-        <label>Room Number</label>
-        <input id="f_room" type="text" placeholder="e.g., 302">
-      </div>
-      <div class="form-group">
-        <label>Guest Name</label>
-        <input id="f_guest" type="text" placeholder="Guest name">
-      </div>
-      <div class="form-group">
-        <label>Category</label>
-        <select id="f_category">
-          <option value="maintenance">Maintenance</option>
-          <option value="billing">Billing</option>
-          <option value="amenities">Amenities</option>
-          <option value="concierge">Concierge</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Title</label>
-        <input id="f_title" type="text" placeholder="Brief description">
-      </div>
-      <div class="form-group">
-        <label>Description</label>
-        <textarea id="f_desc" placeholder="Full details…"></textarea>
-      </div>
-      <div class="form-group">
-        <label>Priority</label>
-        <select id="f_priority">
-          <option value="low">Low</option>
-          <option value="normal" selected>Normal</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Due Date</label>
-        <input id="f_due" type="datetime-local">
-      </div>
-      <div class="form-group">
-        <label>Status</label>
-        <select id="f_status">
-          <option value="open" selected>Open</option>
-          <option value="pending">Pending</option>
-          <option value="inprogress">In Progress</option>
-          <option value="resolved">Resolved</option>
-        </select>
+      <div class="form-grid">
+        <div class="form-field full">
+          <label for="f_title">Issue title</label>
+          <input type="text" id="f_title" placeholder="e.g. AC not cooling">
+        </div>
+        <div class="form-field full">
+          <label for="f_desc">Description</label>
+          <textarea id="f_desc" placeholder="What's happening, what's needed…"></textarea>
+        </div>
+        <div class="form-field">
+          <label for="f_room">Room / Location</label>
+          <input type="text" id="f_room" placeholder="e.g. Room 412, Lobby">
+        </div>
+        <div class="form-field">
+          <label for="f_category">Department</label>
+          <select id="f_category">
+        <option>Housekeeping</option>
+        <option>Maintenance</option>
+        <option>Front Desk</option>
+        <option>IT / Tech</option>
+        <option>Sales</option>
+        <option>Human Resource</option>
+	    <option>Finance</option>
+        <option>Food &amp; Beverage</option>
+        <option>Security</option>
+        <option>Culinary</option>
+        <option>Other</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="f_priority">Priority</label>
+          <select id="f_priority">
+            <option>Low</option>
+            <option selected>Medium</option>
+            <option>High</option>
+            <option>Urgent</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="f_status">Status</label>
+          <select id="f_status">
+            <option>Open</option>
+            <option>In Progress</option>
+            <option>On Hold</option>
+            <option>Resolved</option>
+            <option>Closed</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="f_due">Due by (SLA)</label>
+          <input type="datetime-local" id="f_due">
+          <span class="hint">Auto-set from priority — adjust anytime.</span>
+        </div>
+        <div class="form-field">
+          <label for="f_reporter">Reported by</label>
+          <input type="text" id="f_reporter" placeholder="Staff name">
+        </div>
+        <div class="form-field">
+          <label for="f_assignee">Assigned to</label>
+          <input type="text" id="f_assignee" placeholder="Staff name">
+        </div>
+        <div class="form-field">
+          <label for="f_guest">Guest name (optional)</label>
+          <input type="text" id="f_guest" placeholder="If a guest reported this">
+        </div>
       </div>
     </div>
     <div class="modal-foot">
-      <button id="cancelTicketBtn" class="btn btn-ghost">Cancel</button>
-      <button id="saveTicketBtn" class="btn btn-primary">Save</button>
+      <button class="btn btn-ghost" id="cancelTicketBtn">Cancel</button>
+      <button class="btn btn-primary" id="saveTicketBtn">Save Ticket</button>
     </div>
   </div>
 </div>
 
-<!-- Detail modal -->
-<div id="detailModalOverlay" class="modal-overlay">
-  <div class="modal-content">
+<!-- Ticket Detail Modal -->
+<div class="overlay" id="detailModalOverlay">
+  <div class="modal" style="max-width:600px;">
     <div class="modal-head">
-      <div>
-        <h2 id="detailId" style="margin:0 0 3px 0;">—</h2>
-        <div style="font-size:12px;color:var(--ink-soft);" id="detailMeta">—</div>
-      </div>
-      <button id="closeDetailModal" class="close-btn">×</button>
+      <h2>Ticket Detail</h2>
+      <button class="modal-close" id="closeDetailModal">&times;</button>
     </div>
-    <div class="modal-body">
-      <div style="margin-bottom:12px;">
-        <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Title</div>
-        <div style="font-size:15px;font-weight:500;" id="detailTitle">—</div>
+    <div class="modal-body" id="detailBody"></div>
+    <div class="modal-foot" style="justify-content:space-between;">
+      <button class="danger-link" id="deleteTicketBtn">Delete ticket</button>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-ghost" id="printTicketBtn">Print</button>
+        <button class="btn btn-primary" id="editTicketBtn">Edit</button>
       </div>
-      <div style="margin-bottom:12px;">
-        <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Description</div>
-        <div style="font-size:13px;line-height:1.5;" id="detailDesc">—</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div>
-          <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Room</div>
-          <div style="font-size:13px;font-weight:500;" id="detailRoom">—</div>
-        </div>
-        <div>
-          <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Guest</div>
-          <div style="font-size:13px;" id="detailGuest">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div>
-          <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Category</div>
-          <div style="font-size:13px;" id="detailCategory">—</div>
-        </div>
-        <div>
-          <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Priority</div>
-          <div style="font-size:13px;" id="detailPriority">—</div>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
-        <div>
-          <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Status</div>
-          <div style="font-size:13px;" id="detailStatus">—</div>
-        </div>
-        <div>
-          <div style="font-size:11px;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;">Due</div>
-          <div style="font-size:13px;" id="detailDue">—</div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-foot">
-      <button id="deleteTicketBtn" class="btn btn-ghost" style="color:var(--red);">Delete</button>
-      <button id="editTicketBtn" class="btn btn-primary">Edit</button>
     </div>
   </div>
 </div>
+
+<!-- Handover Modal -->
+<div class="overlay" id="handoverOverlay">
+  <div class="modal handover-modal">
+    <div class="modal-head">
+      <h2>Shift Handover Report</h2>
+      <button class="modal-close" id="closeHandoverModal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-field full handover-notes" style="margin-bottom:16px;">
+        <label for="handoverNotes">Notes for the next shift</label>
+        <textarea id="handoverNotes" placeholder="Anything the next shift should know…"></textarea>
+      </div>
+      <div class="ho-toolbar">
+        <span id="hoSelectedCount" class="hint" style="margin:0;"></span>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost" id="hoSelectAll" type="button">Select all</button>
+          <button class="btn btn-ghost" id="hoSelectNone" type="button">Select none</button>
+        </div>
+      </div>
+      <div id="handoverPreview"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="closeHandoverBtn2">Close</button>
+      <button class="btn btn-primary" id="printHandoverBtn">Print Report</button>
+    </div>
+  </div>
+</div>
+
+<div id="printArea"></div>
+
+<div id="toast"></div>
 
 <script>
 (function(){
-  var SHARED_KEY = "badsbrotel-tickets";
-  var SLA_HOURS = {high:4, normal:8, low:24};
+  "use strict";
+
+  var STORAGE_KEY = "keyline_hotel_tickets_v1";
+  var COUNTER_KEY = "keyline_hotel_counter_v1";
+  var NOTES_KEY = "keyline_handover_notes_v1";
+  var SHARED_KEY = "tickets_shared_v1";
+
   var state = {
     tickets: [],
-    filters: {search:"", status:"", category:"", priority:"", overdue:""},
     view: "board",
-    editingId: null,
+    filters: { search:"", status:"", category:"", priority:"", overdue:"" },
     activeTicketId: null,
-    handoverSelected: new Set(),
-    lastSync: 0
+    editingId: null,
+    lastSync: null,
+    handoverSelected: new Set()
   };
 
-  // Check if storage API is available
-  var hasSync = typeof window !== 'undefined' && window.storage !== undefined;
+  var STATUS_ORDER = ["Open","In Progress","On Hold","Resolved","Closed"];
+  var STATUS_CLASS = {"Open":"b-open","In Progress":"b-progress","On Hold":"b-hold","Resolved":"b-resolved","Closed":"b-closed"};
+  var PRIORITY_CLASS = {"Low":"p-low","Medium":"p-medium","High":"p-high","Urgent":"p-urgent"};
+  var PRIORITY_ACCENT = {"Low":"#7a7566","Medium":"#3968b0","High":"#a9793f","Urgent":"#a5372b"};
+  var SLA_HOURS = {"Urgent":1,"High":4,"Medium":24,"Low":72};
 
-  var $ = function(id){ return document.getElementById(id); };
+  var hasSync = !!(window.storage && typeof window.storage.get === "function");
 
-  function showToast(msg){
-    var t = document.createElement("div");
-    t.className = "toast";
-    t.textContent = msg;
-    document.body.appendChild(t);
-    setTimeout(function(){ t.remove(); }, 3000);
-  }
-
-  function saveLocal(){
-    try {
-      localStorage.setItem("badsbrotel-local", JSON.stringify(state.tickets));
-    } catch(e) {}
-  }
-
+  /* ---------------- persistence ---------------- */
   function load(){
-    try {
-      var local = localStorage.getItem("badsbrotel-local");
-      if(local) state.tickets = JSON.parse(local) || [];
-    } catch(e) {}
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      state.tickets = raw ? JSON.parse(raw) : null;
+    }catch(e){ state.tickets = null; }
+    if(!state.tickets){
+      state.tickets = seedData();
+      saveLocal();
+    }
   }
-
+  function saveLocal(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.tickets));
+    }catch(e){
+      showToast("Couldn't save — storage may be full.");
+    }
+  }
   function save(){
     saveLocal();
-    if(hasSync) pushShared();
+    pushShared();
+  }
+  function nextId(){
+    var n = parseInt(localStorage.getItem(COUNTER_KEY) || "0", 10) + 1;
+    localStorage.setItem(COUNTER_KEY, String(n));
+    return "HTL-" + String(n).padStart(4,"0");
   }
 
-  function uid(){
-    return "T-" + Date.now() + "-" + Math.random().toString(36).substr(2,6).toUpperCase();
-  }
-
-  function toInputDT(ms){
-    var d = new Date(ms);
-    var s = d.toISOString().slice(0,16);
-    return s;
-  }
-
-  function fromInputDT(s){
-    return new Date(s).getTime();
-  }
-
-  function formatDT(ms){
-    if(!ms) return "—";
-    var d = new Date(ms);
-    return d.toLocaleDateString() + " " + d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
-  }
-
-  function getStats(){
-    var open = state.tickets.filter(function(t){return t.status==="open";}).length;
-    var pending = state.tickets.filter(function(t){return t.status==="pending";}).length;
-    var inprogress = state.tickets.filter(function(t){return t.status==="inprogress";}).length;
-    var resolved = state.tickets.filter(function(t){return t.status==="resolved";}).length;
-    var total = state.tickets.length;
+  function seedData(){
+    localStorage.setItem(COUNTER_KEY, "3");
     var now = Date.now();
-    var overdue = state.tickets.filter(function(t){return t.due && t.due < now && t.status!=="resolved";}).length;
-    var times = state.tickets
-      .filter(function(t){return t.status==="resolved" && t.resolvedAt;})
-      .map(function(t){return t.resolvedAt - t.createdAt;});
-    var avgTime = times.length ? Math.round(times.reduce(function(a,b){return a+b;},0)/times.length/3600000) + "h" : "—";
-
-    return {open:open, pending:pending, inprogress:inprogress, resolved:resolved, total:total, overdue:overdue, avgTime:avgTime};
+    return [
+      {
+        id:"HTL-0001", title:"AC not cooling", description:"Guest reports the AC unit is running but room stays warm.",
+        room:"Room 412", category:"Maintenance", priority:"High", status:"In Progress",
+        reporter:"Mia (Front Desk)", assignee:"Engineering Team", guest:"Mr. Alvarez",
+        createdAt: now - 1000*60*60*5, updatedAt: now - 1000*60*30, dueAt: now + 1000*60*60*1,
+        log:[{text:"Ticket created from guest call.", ts: now - 1000*60*60*5},{text:"Technician dispatched to room.", ts: now - 1000*60*30}]
+      },
+      {
+        id:"HTL-0002", title:"Extra towels requested", description:"Guest asked for 2 extra bath towels and a bathrobe.",
+        room:"Room 208", category:"Housekeeping", priority:"Low", status:"Open",
+        reporter:"Front Desk", assignee:"", guest:"Ms. Tan",
+        createdAt: now - 1000*60*40, updatedAt: now - 1000*60*40, dueAt: now + 1000*60*60*70,
+        log:[{text:"Ticket created.", ts: now - 1000*60*40}]
+      },
+      {
+        id:"HTL-0003", title:"Wi-Fi not connecting", description:"Guest unable to connect laptop to hotel Wi-Fi in conference room B.",
+        room:"Conference Rm B", category:"IT / Tech", priority:"Urgent", status:"Open",
+        reporter:"Events Coordinator", assignee:"", guest:"",
+        createdAt: now - 1000*60*10, updatedAt: now - 1000*60*10, dueAt: now - 1000*60*5,
+        log:[{text:"Ticket created — event starting in 20 minutes.", ts: now - 1000*60*10}]
+      }
+    ];
   }
 
-  function updateStats(){
-    var s = getStats();
-    $("statOpen").textContent = s.open;
-    $("statPending").textContent = s.pending;
-    $("statOverdue").textContent = s.overdue;
-    $("statResolved").textContent = s.resolved;
-    $("statTotal").textContent = s.total;
-    $("statAvgTime").textContent = s.avgTime;
-  }
-
-  function applyFilters(){
-    var f = state.filters;
-    var now = Date.now();
-    return state.tickets.filter(function(t){
-      if(f.search && !t.title.toLowerCase().includes(f.search.toLowerCase()) && 
-         !t.room.toLowerCase().includes(f.search.toLowerCase()) &&
-         !t.guest.toLowerCase().includes(f.search.toLowerCase())) return false;
-      if(f.status && t.status !== f.status) return false;
-      if(f.category && t.category !== f.category) return false;
-      if(f.priority && t.priority !== f.priority) return false;
-      if(f.overdue==="overdue" && (!t.due || t.due >= now || t.status==="resolved")) return false;
-      if(f.overdue==="today" && (!t.due || Math.floor(t.due/86400000) !== Math.floor(now/86400000))) return false;
-      return true;
+  /* ---------------- helpers ---------------- */
+  function $(id){ return document.getElementById(id); }
+  function esc(s){
+    return String(s==null?"":s).replace(/[&<>"']/g, function(c){
+      return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
     });
+  }
+  function initials(name){
+    if(!name) return "—";
+    var parts = name.trim().split(/\s+/);
+    return (parts[0][0]+ (parts[1]?parts[1][0]:"")).toUpperCase();
+  }
+  function timeAgo(ts){
+    var s = Math.floor((Date.now()-ts)/1000);
+    if(s<60) return "just now";
+    var m = Math.floor(s/60); if(m<60) return m+"m ago";
+    var h = Math.floor(m/60); if(h<24) return h+"h ago";
+    var d = Math.floor(h/24); return d+"d ago";
+  }
+  function fmtDate(ts){
+    var d = new Date(ts);
+    return d.toLocaleDateString(undefined,{month:"short",day:"numeric"}) + " · " + d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
+  }
+  function toInputDT(ts){
+    var d = new Date(ts - new Date().getTimezoneOffset()*60000);
+    return d.toISOString().slice(0,16);
+  }
+  function fromInputDT(val){
+    if(!val) return null;
+    var d = new Date(val);
+    return d.getTime();
+  }
+  function isActive(t){ return t.status!=="Resolved" && t.status!=="Closed"; }
+  function isOverdue(t){ return isActive(t) && t.dueAt && t.dueAt < Date.now(); }
+  function isDueSoon(t){
+    if(!isActive(t) || !t.dueAt || isOverdue(t)) return false;
+    return (t.dueAt - Date.now()) < 1000*60*60*2; // within 2 hours
+  }
+  function dueLabel(t){
+    if(!t.dueAt) return null;
+    if(isOverdue(t)) return "Overdue " + timeAgo(t.dueAt).replace(" ago","")+" ago";
+    var mins = Math.round((t.dueAt-Date.now())/60000);
+    if(mins<60) return "Due in "+mins+"m";
+    var hrs = Math.round(mins/60);
+    if(hrs<48) return "Due in "+hrs+"h";
+    return "Due "+fmtDate(t.dueAt);
+  }
+  function showToast(msg){
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(showToast._h);
+    showToast._h = setTimeout(function(){ t.classList.remove("show"); }, 2200);
+  }
+
+  /* ---------------- filtering ---------------- */
+  function getFiltered(){
+    var f = state.filters;
+    var q = f.search.trim().toLowerCase();
+    return state.tickets.filter(function(t){
+      if(f.status && t.status!==f.status) return false;
+      if(f.category && t.category!==f.category) return false;
+      if(f.priority && t.priority!==f.priority) return false;
+      if(f.overdue==="overdue" && !isOverdue(t)) return false;
+      if(q){
+        var hay = [t.id,t.title,t.description,t.room,t.reporter,t.assignee,t.guest].join(" ").toLowerCase();
+        if(hay.indexOf(q)===-1) return false;
+      }
+      return true;
+    }).sort(function(a,b){ return b.updatedAt - a.updatedAt; });
+  }
+
+  /* ---------------- rendering: stats ---------------- */
+  function renderStats(){
+    var all = state.tickets;
+    var open = all.filter(function(t){return t.status==="Open";}).length;
+    var progress = all.filter(function(t){return t.status==="In Progress";}).length;
+    var urgent = all.filter(function(t){return t.priority==="Urgent" && isActive(t);}).length;
+    var overdue = all.filter(isOverdue).length;
+    var todayStart = new Date(); todayStart.setHours(0,0,0,0);
+    var resolvedToday = all.filter(function(t){return !isActive(t) && t.updatedAt>=todayStart.getTime();}).length;
+    var total = all.length;
+    var cards = [
+      {n: total, label:"Total tickets", accent:"#152238"},
+      {n: open, label:"Open", accent:"#3968b0"},
+      {n: progress, label:"In progress", accent:"#a9793f"},
+      {n: urgent, label:"Urgent &amp; active", accent:"#a5372b"},
+      {n: overdue, label:"Overdue", accent:"#a5372b"},
+      {n: resolvedToday, label:"Resolved today", accent:"#3f7d55"}
+    ];
+    $("statsRow").innerHTML = cards.map(function(c){
+      return '<div class="stat-card" style="--accent:'+c.accent+'"><div class="stat-num">'+c.n+'</div><div class="stat-label">'+c.label+'</div></div>';
+    }).join("");
+  }
+
+  /* ---------------- rendering: board ---------------- */
+  function ticketCardHtml(t){
+    var due = dueLabel(t);
+    var dueClass = isOverdue(t) ? "due-overdue" : (isDueSoon(t) ? "due-soon" : "");
+    var dueHtml = due ? '<span class="'+dueClass+'">'+due+'</span>' : "";
+    return '<div class="ticket'+(isOverdue(t)?" overdue":"")+'" style="--accent:'+PRIORITY_ACCENT[t.priority]+'" data-id="'+t.id+'">'+
+      '<div class="ticket-top"><span class="ticket-id">'+t.id+'</span><span class="prio-tag" style="background:'+PRIORITY_ACCENT[t.priority]+'22;color:'+PRIORITY_ACCENT[t.priority]+'">'+esc(t.priority)+'</span></div>'+
+      '<div class="ticket-title">'+esc(t.title)+'</div>'+
+      '<div class="ticket-meta"><span>'+esc(t.room||"—")+'</span><span>'+esc(t.category)+'</span>'+dueHtml+'</div>'+
+      '<div class="ticket-foot"><span>'+timeAgo(t.updatedAt)+'</span><span class="avatar" title="'+esc(t.assignee||"Unassigned")+'">'+initials(t.assignee)+'</span></div>'+
+    '</div>';
   }
 
   function renderBoard(){
-    var filtered = applyFilters();
-    ["open","pending","inprogress","resolved"].forEach(function(status){
-      var col = $(("col-"+status));
-      var tickets = filtered.filter(function(t){return t.status===status;});
-      $("colCount-"+status).textContent = tickets.length;
-
-      col.innerHTML = "";
-      if(tickets.length===0){
-        col.appendChild(function(){
-          var e = document.createElement("div");
-          e.className = "empty-col";
-          e.textContent = "—";
-          return e;
-        }());
-      } else {
-        tickets.forEach(function(t){
-          var card = document.createElement("div");
-          card.className = "ticket" + (t.due && t.due < Date.now() && t.status!=="resolved" ? " overdue" : "");
-          card.setAttribute("data-id", t.id);
-          card.style.setProperty("--accent", {high:"var(--red)", normal:"var(--brass)", low:"var(--green)"}[t.priority]);
-          var now = Date.now();
-          var imminentDue = t.due && t.due - now < 3600000 && t.due > now;
-          card.innerHTML = "<div class='ticket-top'><div class='ticket-id'>"+t.id+"</div><div class='prio-tag "+t.priority+"'>"+t.priority+"</div></div>" +
-            "<div class='ticket-title'>"+t.title+"</div>" +
-            (t.desc ? "<div class='ticket-text'>"+t.desc+"</div>" : "") +
-            "<div class='ticket-meta'><div class='ticket-dept'>"+t.category+"</div>" +
-            (t.due ? "<div class='ticket-due"+(imminentDue?" imminent":"")+">"+new Date(t.due).toLocaleDateString()+"</div>" : "") +
-            "</div>";
-          col.appendChild(card);
-        });
-      }
-    });
+    var filtered = getFiltered();
+    if(filtered.length===0){ $("boardView").innerHTML = emptyStateHtml(); return; }
+    var cols = STATUS_ORDER.map(function(status){
+      var items = filtered.filter(function(t){return t.status===status;});
+      var body = items.length
+        ? items.map(ticketCardHtml).join("")
+        : '<div class="empty-col">No tickets</div>';
+      return '<div class="col"><div class="col-head"><h3>'+status+'</h3><span class="col-count">'+items.length+'</span></div><div class="col-body">'+body+'</div></div>';
+    }).join("");
+    $("boardView").innerHTML = '<div class="board">'+cols+'</div>';
   }
 
+  function emptyStateHtml(){
+    return '<div class="empty-state"><div class="glyph">🗝️</div><h3>No tickets match your filters</h3><p>Try clearing a filter, or create a new ticket to get started.</p></div>';
+  }
+
+  /* ---------------- rendering: table ---------------- */
   function renderTable(){
-    var filtered = applyFilters();
-    var tbody = $("tableBody");
-    tbody.innerHTML = "";
-    filtered.forEach(function(t){
-      var row = document.createElement("tr");
-      row.setAttribute("data-id", t.id);
-      var statusColors = {open:"var(--blue)", pending:"var(--amber)", inprogress:"var(--brass)", resolved:"var(--green)"};
-      row.innerHTML = "<td>"+t.id+"</td><td>"+t.room+"</td><td>"+t.category+"</td><td>"+t.title+"</td>" +
-        "<td><div style='font-size:11px;font-weight:600;color:"+statusColors[t.status]+";text-transform:uppercase;'>"+t.status+"</div></td>" +
-        "<td>"+t.priority+"</td>" +
-        "<td>"+(t.due?new Date(t.due).toLocaleDateString():"—")+"</td>";
-      tbody.appendChild(row);
-    });
+    var filtered = getFiltered();
+    if(filtered.length===0){
+      $("tableView").innerHTML = emptyStateHtml();
+      return;
+    }
+    var rows = filtered.map(function(t){
+      var due = dueLabel(t);
+      return '<tr data-id="'+t.id+'">'+
+        '<td>'+t.id+'</td>'+
+        '<td>'+esc(t.title)+'</td>'+
+        '<td>'+esc(t.room||"—")+'</td>'+
+        '<td>'+esc(t.category)+'</td>'+
+        '<td><span class="badge '+PRIORITY_CLASS[t.priority]+'">'+t.priority+'</span></td>'+
+        '<td><span class="badge '+(isOverdue(t)?"b-overdue":STATUS_CLASS[t.status])+'">'+(isOverdue(t)?"Overdue":t.status)+'</span></td>'+
+        '<td>'+esc(t.assignee||"—")+'</td>'+
+        '<td>'+(due||"—")+'</td>'+
+        '<td>'+timeAgo(t.updatedAt)+'</td>'+
+      '</tr>';
+    }).join("");
+    $("tableView").innerHTML = '<div class="table-wrap"><table><thead><tr>'+
+      '<th>ID</th><th>Title</th><th>Location</th><th>Dept.</th><th>Priority</th><th>Status</th><th>Assigned</th><th>Due</th><th>Updated</th>'+
+      '</tr></thead><tbody>'+rows+'</tbody></table></div>';
   }
 
   function renderAll(){
-    updateStats();
-    if(state.view==="board") renderBoard();
-    else renderTable();
+    renderStats();
+    if(state.view==="board"){ renderBoard(); } else { renderTable(); }
   }
 
+  /* ---------------- ticket create/edit modal ---------------- */
   function openTicketModal(id){
-    var modal = $("ticketModalOverlay");
-    state.editingId = id;
-    if(id){
-      var t = state.tickets.find(function(x){return x.id===id;});
-      $("ticketModalTitle").textContent = "Edit Ticket";
-      $("f_room").value = t.room;
-      $("f_guest").value = t.guest;
-      $("f_category").value = t.category;
-      $("f_title").value = t.title;
-      $("f_desc").value = t.desc;
-      $("f_priority").value = t.priority;
-      $("f_due").value = toInputDT(t.due);
-      $("f_status").value = t.status;
-    } else {
-      $("ticketModalTitle").textContent = "New Ticket";
-      $("f_room").value = "";
-      $("f_guest").value = "";
-      $("f_category").value = "maintenance";
-      $("f_title").value = "";
-      $("f_desc").value = "";
-      $("f_priority").value = "normal";
-      $("f_due").value = toInputDT(Date.now() + SLA_HOURS.normal*3600000);
-      $("f_status").value = "open";
-    }
-    modal.classList.add("open");
+    state.editingId = id || null;
+    var t = id ? state.tickets.find(function(x){return x.id===id;}) : null;
+    $("ticketModalTitle").textContent = t ? "Edit Ticket · "+t.id : "New Ticket";
+    $("f_title").value = t ? t.title : "";
+    $("f_desc").value = t ? t.description : "";
+    $("f_room").value = t ? t.room : "";
+    $("f_category").value = t ? t.category : "Housekeeping";
+    $("f_priority").value = t ? t.priority : "Medium";
+    $("f_status").value = t ? t.status : "Open";
+    $("f_reporter").value = t ? t.reporter : "";
+    $("f_assignee").value = t ? t.assignee : "";
+    $("f_guest").value = t ? t.guest : "";
+    var dueTs = t ? t.dueAt : (Date.now() + SLA_HOURS[$("f_priority").value]*3600000);
+    $("f_due").value = toInputDT(dueTs);
+    $("ticketModalOverlay").classList.add("show");
+    setTimeout(function(){ $("f_title").focus(); }, 30);
   }
-
-  function closeTicketModal(){
-    $("ticketModalOverlay").classList.remove("open");
-    state.editingId = null;
-  }
+  function closeTicketModal(){ $("ticketModalOverlay").classList.remove("show"); }
 
   function saveTicketFromForm(){
-    var room = $("f_room").value.trim();
-    var guest = $("f_guest").value.trim();
-    var category = $("f_category").value;
     var title = $("f_title").value.trim();
-    var desc = $("f_desc").value.trim();
-    var priority = $("f_priority").value;
-    var due = $("f_due").value ? fromInputDT($("f_due").value) : null;
-    var status = $("f_status").value;
-
-    if(!room || !title){
-      showToast("Room and title required.");
-      return;
-    }
-
+    if(!title){ showToast("Please enter a title for the ticket."); $("f_title").focus(); return; }
+    var now = Date.now();
+    var dueVal = fromInputDT($("f_due").value);
     if(state.editingId){
-      var idx = state.tickets.findIndex(function(t){return t.id===state.editingId;});
-      if(idx>=0){
-        state.tickets[idx] = {
-          id: state.editingId,
-          room: room, guest: guest, category: category, title: title, desc: desc,
-          priority: priority, due: due, status: status,
-          createdAt: state.tickets[idx].createdAt,
-          updatedAt: Date.now(),
-          resolvedAt: state.tickets[idx].resolvedAt
-        };
-      }
+      var t = state.tickets.find(function(x){return x.id===state.editingId;});
+      var statusChanged = t.status !== $("f_status").value;
+      t.title = title;
+      t.description = $("f_desc").value.trim();
+      t.room = $("f_room").value.trim();
+      t.category = $("f_category").value;
+      t.priority = $("f_priority").value;
+      t.status = $("f_status").value;
+      t.reporter = $("f_reporter").value.trim();
+      t.assignee = $("f_assignee").value.trim();
+      t.guest = $("f_guest").value.trim();
+      t.dueAt = dueVal;
+      t.updatedAt = now;
+      if(statusChanged){ t.log.push({text:"Status changed to "+t.status+".", ts: now}); }
+      else { t.log.push({text:"Ticket details updated.", ts: now}); }
+      showToast("Ticket "+t.id+" updated.");
     } else {
-      var now = Date.now();
-      state.tickets.push({
-        id: uid(),
-        room: room, guest: guest, category: category, title: title, desc: desc,
-        priority: priority, due: due, status: status,
-        createdAt: now,
-        updatedAt: now,
-        resolvedAt: null
-      });
+      var nt = {
+        id: nextId(),
+        title: title,
+        description: $("f_desc").value.trim(),
+        room: $("f_room").value.trim(),
+        category: $("f_category").value,
+        priority: $("f_priority").value,
+        status: $("f_status").value,
+        reporter: $("f_reporter").value.trim(),
+        assignee: $("f_assignee").value.trim(),
+        guest: $("f_guest").value.trim(),
+        dueAt: dueVal,
+        createdAt: now, updatedAt: now,
+        log:[{text:"Ticket created.", ts: now}]
+      };
+      state.tickets.unshift(nt);
+      showToast("Ticket "+nt.id+" created.");
     }
     save();
     closeTicketModal();
     renderAll();
-    showToast(state.editingId ? "Ticket updated." : "Ticket created.");
   }
 
+  /* ---------------- ticket detail modal ---------------- */
   function openDetailModal(id){
     state.activeTicketId = id;
     var t = state.tickets.find(function(x){return x.id===id;});
     if(!t) return;
-    $("detailId").textContent = t.id;
-    $("detailMeta").textContent = "Room " + t.room + " · " + t.category;
-    $("detailTitle").textContent = t.title;
-    $("detailDesc").textContent = t.desc || "—";
-    $("detailRoom").textContent = t.room;
-    $("detailGuest").textContent = t.guest;
-    $("detailCategory").textContent = t.category;
-    $("detailPriority").textContent = t.priority;
-    $("detailStatus").textContent = t.status;
-    $("detailDue").textContent = t.due ? new Date(t.due).toLocaleString() : "—";
-    $("detailModalOverlay").classList.add("open");
+    var badges = '<span class="badge '+(isOverdue(t)?"b-overdue":STATUS_CLASS[t.status])+'">'+(isOverdue(t)?"Overdue":t.status)+'</span><span class="badge '+PRIORITY_CLASS[t.priority]+'">'+t.priority+' priority</span>';
+    var quickBtns = STATUS_ORDER.map(function(s){
+      return '<button data-status="'+s+'" class="'+(s===t.status?"active":"")+'">'+s+'</button>';
+    }).join("");
+    var logHtml = t.log.slice().reverse().map(function(l){
+      return '<div class="log-item">'+esc(l.text)+'<time>'+fmtDate(l.ts)+'</time></div>';
+    }).join("");
+    $("detailBody").innerHTML =
+      '<div class="detail-head"><h2 style="margin:0;font-size:19px;">'+esc(t.title)+'</h2><span class="ticket-id">'+t.id+'</span></div>'+
+      '<div class="detail-badges">'+badges+'</div>'+
+      '<p style="font-size:13.5px;color:var(--ink-soft);line-height:1.5;margin:0 0 14px;">'+esc(t.description || "No description provided.")+'</p>'+
+      '<div class="detail-grid">'+
+        '<div><span>Location</span>'+esc(t.room||"—")+'</div>'+
+        '<div><span>Department</span>'+esc(t.category)+'</div>'+
+        '<div><span>Reported by</span>'+esc(t.reporter||"—")+'</div>'+
+        '<div><span>Assigned to</span>'+esc(t.assignee||"Unassigned")+'</div>'+
+        '<div><span>Guest</span>'+esc(t.guest||"—")+'</div>'+
+        '<div><span>Created</span>'+fmtDate(t.createdAt)+'</div>'+
+        '<div><span>Due by</span>'+(t.dueAt?fmtDate(t.dueAt):"—")+'</div>'+
+      '</div>'+
+      '<label style="margin-bottom:6px;display:block;">Quick status change</label>'+
+      '<div class="quick-status">'+quickBtns+'</div>'+
+      '<div class="divider"></div>'+
+      '<label style="margin-bottom:8px;display:block;">Activity log</label>'+
+      '<div class="log">'+logHtml+'</div>'+
+      '<div class="add-note"><input type="text" id="noteInput" placeholder="Add a note…"><button class="btn btn-ghost" id="addNoteBtn">Add</button></div>';
+
+    $("detailModalOverlay").classList.add("show");
+
+    Array.prototype.forEach.call($("detailBody").querySelectorAll(".quick-status button"), function(btn){
+      btn.addEventListener("click", function(){
+        var newStatus = btn.getAttribute("data-status");
+        if(newStatus===t.status) return;
+        t.status = newStatus;
+        t.updatedAt = Date.now();
+        t.log.push({text:"Status changed to "+newStatus+".", ts:t.updatedAt});
+        save();
+        renderAll();
+        openDetailModal(id);
+      });
+    });
+    $("addNoteBtn").onclick = function(){
+      var v = $("noteInput").value.trim();
+      if(!v) return;
+      t.updatedAt = Date.now();
+      t.log.push({text:v, ts:t.updatedAt});
+      save();
+      renderAll();
+      openDetailModal(id);
+    };
+    var ni = $("noteInput");
+    if(ni){ ni.addEventListener("keydown", function(e){ if(e.key==="Enter"){ $("addNoteBtn").click(); } }); }
+  }
+  function closeDetailModal(){ $("detailModalOverlay").classList.remove("show"); state.activeTicketId=null; }
+
+  /* ---------------- handover report ---------------- */
+  function loadHandoverNotes(){ return localStorage.getItem(NOTES_KEY) || ""; }
+  function saveHandoverNotes(v){ try{ localStorage.setItem(NOTES_KEY, v); }catch(e){} }
+
+  function buildHandoverSections(){
+    var active = state.tickets.filter(isActive);
+    var byDept = {};
+    active.forEach(function(t){
+      byDept[t.category] = byDept[t.category] || [];
+      byDept[t.category].push(t);
+    });
+    var order = {"Urgent":0,"High":1,"Medium":2,"Low":3};
+    Object.keys(byDept).forEach(function(k){
+      byDept[k].sort(function(a,b){ return (order[a.priority]-order[b.priority]) || (a.dueAt||Infinity)-(b.dueAt||Infinity); });
+    });
+    return byDept;
   }
 
-  function closeDetailModal(){
-    $("detailModalOverlay").classList.remove("open");
-    state.activeTicketId = null;
+  function handoverRowHtml(t, selectable){
+    var due = dueLabel(t);
+    var dueStr = due ? (isOverdue(t) ? '<strong style="color:#a5372b;">'+due+'</strong>' : due) : "No SLA";
+    var checked = state.handoverSelected.has(t.id);
+    var checkbox = selectable
+      ? '<input type="checkbox" data-ho-id="'+t.id+'" '+(checked?"checked":"")+'>'
+      : "";
+    var left = '<div class="ho-left"><strong>'+esc(t.title)+'</strong><div class="ho-meta">'+t.id+' · '+esc(t.room||"—")+' · '+esc(t.assignee||"Unassigned")+'</div></div>';
+    var mainWrap = selectable ? '<label class="ho-row-main">'+checkbox+left+'</label>' : left;
+    return '<div class="ho-row'+(selectable && !checked ? " excluded":"")+'">'+mainWrap+'<div class="ho-right">'+t.status+' · '+t.priority+'<div class="ho-meta">'+dueStr+'</div></div></div>';
   }
 
+  function renderHandoverPreview(){
+    var byDept = buildHandoverSections();
+    var depts = Object.keys(byDept);
+    var html;
+    if(depts.length===0){
+      html = '<div class="ho-empty">No open tickets right now — nothing to hand over.</div>';
+    } else {
+      html = depts.map(function(d){
+        var items = byDept[d];
+        var selCount = items.filter(function(t){return state.handoverSelected.has(t.id);}).length;
+        return '<div class="ho-section"><div class="ho-section-head"><h4>'+esc(d)+' ('+selCount+'/'+items.length+')</h4>'+
+          '<button type="button" class="ho-section-toggle" data-ho-dept="'+esc(d)+'">'+(selCount===items.length?"Deselect dept":"Select dept")+'</button></div>'+
+          items.map(function(t){ return handoverRowHtml(t, true); }).join("")+'</div>';
+      }).join("");
+    }
+    $("handoverPreview").innerHTML = html;
+    updateHoCount();
+
+    Array.prototype.forEach.call($("handoverPreview").querySelectorAll("input[data-ho-id]"), function(cb){
+      cb.addEventListener("change", function(){
+        var id = this.getAttribute("data-ho-id");
+        if(this.checked){ state.handoverSelected.add(id); } else { state.handoverSelected.delete(id); }
+        renderHandoverPreview();
+      });
+    });
+    Array.prototype.forEach.call($("handoverPreview").querySelectorAll("button[data-ho-dept]"), function(btn){
+      btn.addEventListener("click", function(){
+        var dept = this.getAttribute("data-ho-dept");
+        var items = byDept[dept] || [];
+        var allSelected = items.every(function(t){ return state.handoverSelected.has(t.id); });
+        items.forEach(function(t){
+          if(allSelected){ state.handoverSelected.delete(t.id); } else { state.handoverSelected.add(t.id); }
+        });
+        renderHandoverPreview();
+      });
+    });
+  }
+
+  function updateHoCount(){
+    var byDept = buildHandoverSections();
+    var total = 0;
+    Object.keys(byDept).forEach(function(d){ total += byDept[d].length; });
+    $("hoSelectedCount").textContent = state.handoverSelected.size + " of " + total + " tickets selected";
+  }
+
+  function openHandoverModal(){
+    $("handoverNotes").value = loadHandoverNotes();
+    var byDept = buildHandoverSections();
+    state.handoverSelected = new Set();
+    Object.keys(byDept).forEach(function(d){
+      byDept[d].forEach(function(t){ state.handoverSelected.add(t.id); });
+    });
+    renderHandoverPreview();
+    $("handoverOverlay").classList.add("show");
+  }
+  function closeHandoverModal(){
+    saveHandoverNotes($("handoverNotes").value);
+    $("handoverOverlay").classList.remove("show");
+  }
+
+  function printHandover(){
+    saveHandoverNotes($("handoverNotes").value);
+    var byDept = buildHandoverSections();
+    Object.keys(byDept).forEach(function(d){
+      byDept[d] = byDept[d].filter(function(t){ return state.handoverSelected.has(t.id); });
+      if(byDept[d].length===0) delete byDept[d];
+    });
+    var depts = Object.keys(byDept);
+    var notes = esc($("handoverNotes").value).replace(/\n/g,"<br>");
+    var stamp = new Date().toLocaleString();
+    var body = depts.length===0
+      ? '<p style="color:#6b6558;">No tickets selected for this report.</p>'
+      : depts.map(function(d){
+          return '<div class="ho-section"><h4>'+esc(d)+' ('+byDept[d].length+')</h4>'+byDept[d].map(function(t){ return handoverRowHtml(t, false); }).join("")+'</div>';
+        }).join("");
+    $("printArea").innerHTML =
+      '<div style="max-width:760px;margin:0 auto;padding:30px;font-family:-apple-system,Segoe UI,sans-serif;color:#26241f;">'+
+      '<h1 style="font-family:Georgia,serif;margin:0 0 2px;">Badsbrotel Suites — Hotel Ticket Desk — Shift Handover Report</h1>'+
+      '<p style="color:#6b6558;font-size:12.5px;margin:0 0 20px;">Generated '+stamp+'</p>'+
+      (notes ? '<div style="background:#f7f4ec;border-radius:8px;padding:12px 14px;margin-bottom:20px;font-size:13px;"><strong>Notes for next shift:</strong><br>'+notes+'</div>' : '')+
+      body+
+      '</div>';
+    document.body.classList.add("printing-handover");
+    window.print();
+  }
+
+  /* ---------------- export / import ---------------- */
   function exportData(){
-    var dataStr = JSON.stringify(state.tickets, null, 2);
-    var blob = new Blob([dataStr], {type:"application/json"});
+    var blob = new Blob([JSON.stringify(state.tickets, null, 2)], {type:"application/json"});
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     var stamp = new Date().toISOString().slice(0,10);
@@ -846,7 +1097,6 @@
     URL.revokeObjectURL(url);
     showToast("Backup file downloaded.");
   }
-
   function importData(file){
     var reader = new FileReader();
     reader.onload = function(){
@@ -864,7 +1114,7 @@
     reader.readAsText(file);
   }
 
-  /* Multi-device sync with persistent storage */
+  /* ---------------- multi-device sync (shared storage) ---------------- */
   function mergeTickets(localList, remoteList){
     var map = {};
     localList.forEach(function(t){ map[t.id]=t; });
@@ -883,8 +1133,8 @@
       return;
     }
     if(mode==="syncing"){ dot.className="status-dot"; label.textContent="Syncing…"; }
-    else if(mode==="synced"){ dot.className="status-dot"; label.textContent="Synced"; }
-    else if(mode==="offline"){ dot.className="status-dot off"; label.textContent="Offline"; }
+    else if(mode==="synced"){ dot.className="status-dot"; label.textContent="Synced just now"; }
+    else if(mode==="offline"){ dot.className="status-dot off"; label.textContent="Waiting to sync"; }
     else if(mode==="error"){ dot.className="status-dot err"; label.textContent="Sync error"; }
   }
 
@@ -924,14 +1174,16 @@
     }catch(e){ setSyncStatus("error"); }
   }
 
+  /* ---------------- online/offline indicator ---------------- */
   function updateNetStatus(){
     var online = navigator.onLine;
     $("netDot").className = "status-dot" + (online ? "" : " off");
-    $("netLabel").textContent = online ? "Online" : "Offline";
+    $("netLabel").textContent = online ? "Online" : "Offline — saving locally";
     if(online && hasSync){ pullShared(false); }
     else if(!online){ setSyncStatus("offline"); }
   }
 
+  /* ---------------- event wiring ---------------- */
   function wire(){
     $("newTicketBtn").addEventListener("click", function(){ openTicketModal(null); });
     $("closeTicketModal").addEventListener("click", closeTicketModal);
@@ -960,6 +1212,10 @@
         renderAll();
         showToast("Ticket deleted.");
       }
+    });
+    $("printTicketBtn").addEventListener("click", function(){
+      document.body.classList.add("printing-ticket");
+      window.print();
     });
 
     $("boardView").addEventListener("click", function(e){
@@ -993,31 +1249,52 @@
       this.value = "";
     });
 
+    $("handoverBtn").addEventListener("click", openHandoverModal);
+    $("closeHandoverModal").addEventListener("click", closeHandoverModal);
+    $("closeHandoverBtn2").addEventListener("click", closeHandoverModal);
+    $("handoverOverlay").addEventListener("click", function(e){ if(e.target===this) closeHandoverModal(); });
+    $("printHandoverBtn").addEventListener("click", printHandover);
+    $("hoSelectAll").addEventListener("click", function(){
+      var byDept = buildHandoverSections();
+      Object.keys(byDept).forEach(function(d){ byDept[d].forEach(function(t){ state.handoverSelected.add(t.id); }); });
+      renderHandoverPreview();
+    });
+    $("hoSelectNone").addEventListener("click", function(){
+      state.handoverSelected.clear();
+      renderHandoverPreview();
+    });
+
     $("syncNowBtn").addEventListener("click", function(){
-      if(!hasSync){ showToast("Sync isn't available — tickets stay on this device."); return; }
+      if(!hasSync){ showToast("Sync isn't available in this context — tickets stay on this device."); return; }
       pullShared(true);
     });
 
     window.addEventListener("online", updateNetStatus);
     window.addEventListener("offline", updateNetStatus);
+    window.addEventListener("afterprint", function(){
+      document.body.classList.remove("printing-handover");
+      document.body.classList.remove("printing-ticket");
+    });
 
     document.addEventListener("keydown", function(e){
-      if(e.key==="Escape"){ closeTicketModal(); closeDetailModal(); }
+      if(e.key==="Escape"){ closeTicketModal(); closeDetailModal(); closeHandoverModal(); }
     });
 
     if(hasSync){
-      setInterval(function(){ if(navigator.onLine) pullShared(false); }, 15000);
+      setInterval(function(){ if(navigator.onLine) pullShared(false); }, 20000);
     }
   }
 
+  /* ---------------- init ---------------- */
   load();
   wire();
   updateNetStatus();
-  setSyncStatus(hasSync ? "syncing" : "gray");
+  setSyncStatus(hasSync ? "offline" : "local");
   renderAll();
   if(!hasSync){
-    $("footerNote").textContent = "Sync not available in this context. Use Export/Import to move data between devices.";
+    $("footerNote").textContent = "Badsbrotel Suites all data on this device's browser. Nothing leaves this browser unless you export it. Works with or without an internet connection. Multi-device sync isn't active in this context — use Export/Import to move data between devices.";
   } else {
+    $("footerNote").textContent = "Badsbrotel Suites saves locally first, so it keeps working offline, and syncs with other devices on this same board when you're back online.";
     pullShared(false);
   }
 
